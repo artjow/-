@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>대전 부근 CCTV위치</title>
+    
+</head>
+<body>
+<div id="map" style="width:100%;height:950px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a0e7c5bf2d81816b2deac797be05adb"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    mapOption = { 
+        center: new kakao.maps.LatLng(36.3400388, 127.3885207), // 지도의 중심좌표
+        level: 6 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+ 
+// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+var positions = [
+    {
+        content: '<div>자립지원센터 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3257556, 127.4251252)
+    },
+    {
+        content: '<div>마음편한병원 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3252175, 127.4236017)
+    },
+    {
+        content: '<div>투다리앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3242559, 127.4209383)
+    },
+    {
+        content: '<div>신평초등학교 정문</div>',
+        latlng: new kakao.maps.LatLng(36.3227163321133, 127.388665876453)
+    },
+    {
+        content: '<div>유평초등학교 정문</div>', 
+        latlng: new kakao.maps.LatLng(36.3310995, 127.3979276)
+    },
+    {
+        content: '<div>버드네초등학교 정문</div>', 
+        latlng: new kakao.maps.LatLng(36.3181700703947, 127.391537315222)
+    },
+    {
+        content: '<div>한밭주택 옆</div>', 
+        latlng: new kakao.maps.LatLng(36.3284636279608, 127.400704097997)
+    },
+    {
+        content: '<div>홍익빌라 앞</div>',
+        latlng: new kakao.maps.LatLng(36.3137212034468, 127.412743851934)
+    },
+    {
+        content: '<div>국제통상고 정문앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3132411703911, 127.408297804499)
+    },
+    {
+        content: '<div>테미공원</div>', 
+        latlng: new kakao.maps.LatLng(36.3186118975676, 127.420618151844)
+    },
+    {
+        content: '<div>덕수암 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3126687899052, 127.421267394755)
+    },
+    {
+        content: '<div>중앙유치원 주변</div>',
+        latlng: new kakao.maps.LatLng(36.3182507422335, 127.414396689647)
+    },
+    {
+        content: '<div>테미도서관 주변</div>', 
+        latlng: new kakao.maps.LatLng(36.3197328, 127.4208069)
+    },
+    {
+        content: '<div>구암6동 노인회경로당 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3503909, 127.3221646)
+    },
+    {
+        content: '<div>장대동 225-39</div>', 
+        latlng: new kakao.maps.LatLng(36.3606926, 127.3249139)
+    },
+    {
+        content: '<div>해가든오리집 뒷길</div>',
+        latlng: new kakao.maps.LatLng(36.4045257, 127.4058697)
+    },
+    {
+        content: '<div>명우빌라앞 삼거리</div>',
+        latlng: new kakao.maps.LatLng(36.3907904, 127.3514423)
+    },
+    {
+        content: '<div>달맞이흑두부앞</div>', 
+        latlng: new kakao.maps.LatLng(36.36163, 127.2953519)
+    },
+    {
+        content: '<div>바글바글김치찌개 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.38788999, 127.3160004)
+    },
+    {
+        content: '<div>구룡동 마을입구</div>', 
+        latlng: new kakao.maps.LatLng(36.4507106, 127.3616078)
+    },
+    {
+        content: '<div>탑립1통산의절 버스정류장 앞</div>',
+        latlng: new kakao.maps.LatLng(36.4097476, 127.3981798)
+    },
+    {
+        content: '<div>우정공원</div>',
+        latlng: new kakao.maps.LatLng(36.3400388, 127.3885207)
+    },
+    {
+        content: '<div>변정어린이공원</div>', 
+        latlng: new kakao.maps.LatLng(36.3234765, 127.3825953)
+    },
+    {
+        content: '<div>중추마을제2습지</div>', 
+        latlng: new kakao.maps.LatLng(36.37536756, 127.4740543)
+    },
+    {
+        content: '<div>판암근린공원-3</div>', 
+        latlng: new kakao.maps.LatLng(36.31820574, 127.4539226)
+    },
+    {
+        content: '<div>세천초교 정문 진입로-1</div>',
+        latlng: new kakao.maps.LatLng(36.34113574, 127.4921597)
+    },
+    {
+        content: '<div>세천초교 정문 진입로-3</div>',
+        latlng: new kakao.maps.LatLng(36.34118323, 127.4921726)
+    },
+    {
+        content: '<div>동명초교 주변-1</div>', 
+        latlng: new kakao.maps.LatLng(36.37362247, 127.4712113)
+    },
+    {
+        content: '<div>돌덴어린이집</div>', 
+        latlng: new kakao.maps.LatLng(36.3489522, 127.3733197)
+    },
+    {
+        content: '<div>주민센터전골목</div>', 
+        latlng: new kakao.maps.LatLng(36.3545212, 127.3587017)
+    },
+    {
+        content: '<div>시정어린이공원앞</div>',
+        latlng: new kakao.maps.LatLng(36.3568304, 127.3660389)
+    },
+    {
+        content: '<div>한길교회앞</div>',
+        latlng: new kakao.maps.LatLng(36.3547027, 127.3676549)
+    },
+    {
+        content: '<div>정다운부동산 앞</div>',
+        latlng: new kakao.maps.LatLng(36.3516158, 127.3731641)
+    },
+    {
+        content: '<div>푸른아파트 뒤편 놀이터앞</div>', 
+        latlng: new kakao.maps.LatLng(36.343091, 127.3716769)
+    },
+    {
+        content: '<div>대현성결교회 원투룸 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3528687, 127.3532836)
+    },
+    {
+        content: '<div>봉산초교 봉산문구</div>', 
+        latlng: new kakao.maps.LatLng(36.3449058, 127.3666504)
+    },
+    {
+        content: '<div>괴정육교밑(둔원고)</div>',
+        latlng: new kakao.maps.LatLng(36.3413497, 127.3733076)
+    },
+    {
+        content: '<div>갈마초정문앞쪽 삼거리</div>', 
+        latlng: new kakao.maps.LatLng(36.3554047, 127.3695096)
+    },
+    {
+        content: '<div>현대아파트113동 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3389925, 127.4103114)
+    },
+    {
+        content: '<div>어린이놀이터</div>', 
+        latlng: new kakao.maps.LatLng(36.3383421, 127.4076131)
+    },
+    {
+        content: '<div>목양초등학교 주변</div>',
+        latlng: new kakao.maps.LatLng(36.3360281, 127.4033725)
+    },
+    {
+        content: '<div>동명초교 주변-2</div>',
+        latlng: new kakao.maps.LatLng(36.37361896, 127.4711935)
+    },
+    {
+        content: '<div>동명초교 주변-3</div>',
+        latlng: new kakao.maps.LatLng(36.37361882, 127.4712272)
+    },
+    {
+        content: '<div>새록새록어린이집-1</div>',
+        latlng: new kakao.maps.LatLng(36.32681611, 127.451109)
+    },
+    {
+        content: '<div>새록새록어린이집-2</div>',
+        latlng: new kakao.maps.LatLng(36.32683805, 127.4511174)
+    },
+    {
+        content: '<div>새록새록어린이집-3</div>',
+        latlng: new kakao.maps.LatLng(36.32683909, 127.4510938)
+    },
+    {
+        content: '<div>주산동 놀이터-1</div>',
+        latlng: new kakao.maps.LatLng(36.35773854, 127.4757415)
+    },
+    {
+        content: '<div>주산동 놀이터-2</div>',
+        latlng: new kakao.maps.LatLng(36.35772714, 127.4757713)
+    },
+    {
+        content: '<div>주산동 놀이터-3</div>',
+        latlng: new kakao.maps.LatLng(36.35773062, 127.4757076)
+    },
+    {
+        content: '<div>신상동 280-7번지</div>',
+        latlng: new kakao.maps.LatLng(36.35374629, 127.498383)
+    },
+    {
+        content: '<div>용운동 352-2번지</div>',
+        latlng: new kakao.maps.LatLng(36.32712498, 127.4613447)
+    },
+    {
+        content: '<div>용운동 352-2번지</div>',
+        latlng: new kakao.maps.LatLng(36.32712498, 127.4613447)
+    },
+    {
+        content: '<div>별나라어린이집</div>', 
+        latlng: new kakao.maps.LatLng(36.3532727, 127.3668133)
+    },
+    {
+        content: '<div>동산유치원</div>', 
+        latlng: new kakao.maps.LatLng(36.3505724, 127.371249)
+    },
+    {
+        content: '<div>월평초교</div>', 
+        latlng: new kakao.maps.LatLng(36.3554436, 127.3589686)
+    },
+    {
+        content: '<div>다모아유치원</div>',
+        latlng: new kakao.maps.LatLng(36.3621397, 127.3682731)
+    },
+    {
+        content: '<div>갈마3거리</div>', 
+        latlng: new kakao.maps.LatLng(36.3517908, 127.3717131)
+    },
+    {
+        content: '<div>갈마성당앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3510617, 127.3672234)
+    },
+    {
+        content: '<div>갈마초교후문</div>', 
+        latlng: new kakao.maps.LatLng(36.3572927, 127.3703451)
+    },
+    {
+        content: '<div>세천초교 정문 앞</div>',
+        latlng: new kakao.maps.LatLng(36.34102703, 127.4925913)
+    },
+    {
+        content: '<div>동산아파트 3동앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3491401, 127.3724225)
+    },
+    {
+        content: '<div>다웅주택앞</div>', 
+        latlng: new kakao.maps.LatLng(36.3461718, 127.3700166)
+    },
+    {
+        content: '<div>솔레시티몰월평1동 915</div>', 
+        latlng: new kakao.maps.LatLng(36.3561089, 127.3620571)
+    },
+    {
+        content: '<div>처가집 신신점</div>',
+        latlng: new kakao.maps.LatLng(36.3534347, 127.3562005)
+    },
+    {
+        content: '<div>반달어린이공원</div>', 
+        latlng: new kakao.maps.LatLng(36.3553659, 127.3660603)
+    },
+    {
+        content: '<div>월평어린이공원</div>', 
+        latlng: new kakao.maps.LatLng(36.3568952, 127.3600736)
+    },
+    {
+        content: '<div>갑천초교 옆길</div>', 
+        latlng: new kakao.maps.LatLng(36.3462496, 127.3703505)
+    },
+    {
+        content: '<div>하이캠유치원</div>',
+        latlng: new kakao.maps.LatLng(36.3546811, 127.3652865)
+    },
+    {
+        content: '<div>자연유치원</div>',
+        latlng: new kakao.maps.LatLng(36.3573877, 127.3602265)
+    },
+    {
+        content: '<div>동명초교 정문입구</div>', 
+        latlng: new kakao.maps.LatLng(36.3733832, 127.4726341)
+    },
+    {
+        content: '<div>대암초교 정문입구 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.32314266, 127.4578492)
+    },
+    {
+        content: '<div>판암초교 정문 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.31601472, 127.4607311)
+    },
+    {
+        content: '<div>대룡초교 정문 앞</div>',
+        latlng: new kakao.maps.LatLng(36.32926459, 127.4543123)
+    },
+    {
+        content: '<div>용운초교 정문 맞은편</div>',
+        latlng: new kakao.maps.LatLng(36.32573363, 127.4641074)
+    },
+    {
+        content: '<div>동심유치원 놀이터 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.32940424, 127.460788)
+    },
+    {
+        content: '<div>대룡초 후문 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.33045672, 127.4551102)
+    },
+    {
+        content: '<div>용운초 후문 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.32640767, 127.462742)
+    },
+    {
+        content: '<div>꿈나무유치원 정문</div>',
+        latlng: new kakao.maps.LatLng(36.32055156, 127.4487811)
+    },
+    {
+        content: '<div>판암초 후문</div>',
+        latlng: new kakao.maps.LatLng(36.31491666, 127.4609524)
+    },
+    {
+        content: '<div>용운어린이집</div>', 
+        latlng: new kakao.maps.LatLng(36.33147775, 127.4549842)
+    },
+    {
+        content: '<div>봉곡유치원 맞은편</div>', 
+        latlng: new kakao.maps.LatLng(36.32000151, 127.4559375)
+    },
+    {
+        content: '<div>용운동 611번지 앞</div>', 
+        latlng: new kakao.maps.LatLng(36.33629636, 127.4570392)
+    },
+    {
+        content: '<div>용운동 290-1번지 앞</div>',
+        latlng: new kakao.maps.LatLng(36.32928489, 127.4588187)
+    },
+    {
+        content: '<div>용운동 293-5번지 앞</div>',
+        latlng: new kakao.maps.LatLng(36.32834675, 127.4566259)
+    },
+    {
+        content: '<div>비룡동 비룡4가</div>',
+        latlng: new kakao.maps.LatLng(36.32692276, 127.4623308)
+    },
+    {
+        content: '<div>도리어린이공원</div>', 
+        latlng: new kakao.maps.LatLng(36.32933637, 127.4610174)
+    },
+    {
+        content: '<div>선암어린이공원</div>', 
+        latlng: new kakao.maps.LatLng(36.3258285, 127.4598991)
+    },
+    {
+        content: '<div>용수골어린이공원</div>', 
+        latlng: new kakao.maps.LatLng(36.3329685, 127.4559125)
+    },
+    {
+        content: '<div>봉곡어린이공원</div>',
+        latlng: new kakao.maps.LatLng(36.32848194, 127.4635151)
+    },
+    {
+        content: '<div>판암어린이공원</div>', 
+        latlng: new kakao.maps.LatLng(36.31663293, 127.4623773)
+    },
+    {
+        content: '<div>판암근린공원-1</div>', 
+        latlng: new kakao.maps.LatLng(36.3389925, 127.4103114)
+    },
+    {
+        content: '<div>어린이놀이터</div>', 
+        latlng: new kakao.maps.LatLng(36.31874046, 127.454383)
+    },
+    {
+        content: '<div>판암근린공원-2</div>',
+        latlng: new kakao.maps.LatLng(36.31857734, 127.4539709)
+    },
+    {
+        content: '<div>동명초교 주변-2</div>',
+        latlng: new kakao.maps.LatLng(36.37361896, 127.4711935)
+    },
+    {
+        content: '<div>성천초(남선중)</div>',
+        latlng: new kakao.maps.LatLng(36.363345, 127.374284)
+    },
+    {
+        content: '<div>갈마공원 2번출구쪽</div>',
+        latlng: new kakao.maps.LatLng(36.3564891, 127.3716326)
+    },
+    {
+        content: '<div>월평초등학교(치안센터앞)</div>',
+        latlng: new kakao.maps.LatLng(36.3548323, 127.3577549)
+    },
+    {
+        content: '<div>월평 제1경로당(새뜸공원)</div>',
+        latlng: new kakao.maps.LatLng(36.3537501, 127.3554093)
+    },
+    {
+        content: '<div>육교부근녹지대 교회</div>',
+        latlng: new kakao.maps.LatLng(36.3532575, 127.3605604)
+    },
+    {
+        content: '<div>월평경로당</div>',
+        latlng: new kakao.maps.LatLng(36.356649, 127.3599248)
+    },
+    {
+        content: '<div>갈마초등학교</div>',
+        latlng: new kakao.maps.LatLng(36.3561651, 127.3683563)
+    },
+    {
+        content: '<div>해든마켓옆</div>',
+        latlng: new kakao.maps.LatLng(36.3488031, 127.3745361)
+    },
+    {
+        content: '<div>동주민뒤쪽 초록빌라</div>',
+        latlng: new kakao.maps.LatLng(36.346457, 127.3740426)
+    },
+    {
+        content: '<div>건능골공원계단앞</div>',
+        latlng: new kakao.maps.LatLng(36.3448431, 127.3709433)
+    },
+    {
+        content: '<div>중촌초등학교</div>',
+        latlng: new kakao.maps.LatLng(36.3406712, 127.4117678)
+    },
+    {
+        content: '<div>무릉공원</div>',
+        latlng: new kakao.maps.LatLng(36.3420993, 127.4104187)
+    },
+    {
+        content: '<div>서남당공원</div>',
+        latlng: new kakao.maps.LatLng(36.299154, 127.3750283)
+    },
+    {
+        content: '<div>느티나무공원</div>',
+        latlng: new kakao.maps.LatLng(36.2967048, 127.379466)
+    },
+    {
+        content: '<div>봉명초등학교옆</div>',
+        latlng: new kakao.maps.LatLng(36.3500116059222, 127.344122849346)
+    },
+    {
+        content: '<div>이상음원테스트</div>',
+        latlng: new kakao.maps.LatLng(36.3390441576333, 127.34397198549)
+    },
+    {
+        content: '<div>트리풀시티 모델하우스</div>',
+        latlng: new kakao.maps.LatLng(36.3526229783737, 127.343479581192)
+    },
+    {
+        content: '<div>백야공원  가수원중</div>',
+        latlng: new kakao.maps.LatLng(36.2970041, 127.3542881)
+    },
+    {
+        content: '<div>산내초교 후문 앞</div>',
+        latlng: new kakao.maps.LatLng(36.2798916, 127.4697387)
+    },
+    {
+        content: '<div>행복한유치원</div>',
+        latlng: new kakao.maps.LatLng(36.3055632, 127.3731346)
+    },
+    {
+        content: '<div>삼육초교</div>',
+        latlng: new kakao.maps.LatLng(36.3111786, 127.3737328)
+    },
+    {
+        content: '<div>동방여중정문</div>',
+        latlng: new kakao.maps.LatLng(36.3066634, 127.3752563)
+    },
+    {
+        content: '<div>도마초정문</div>',
+        latlng: new kakao.maps.LatLng(36.3231754, 127.3717131)
+    },
+    {
+        content: '<div>도마농협뒤</div>',
+        latlng: new kakao.maps.LatLng(36.3154558, 127.3783596)
+    }
+];
+
+for (var i = 0; i < positions.length; i ++) {
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng // 마커의 위치
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+
+/* 아래와 같이도 할 수 있습니다 */
+/*
+for (var i = 0; i < positions.length; i ++) {
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng // 마커의 위치
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
+    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    (function(marker, infowindow) {
+        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
+        kakao.maps.event.addListener(marker, 'mouseover', function() {
+            infowindow.open(map, marker);
+        });
+
+        // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
+        kakao.maps.event.addListener(marker, 'mouseout', function() {
+            infowindow.close();
+        });
+    })(marker, infowindow);
+}
+*/
+</script>
+</body>
+</html>
